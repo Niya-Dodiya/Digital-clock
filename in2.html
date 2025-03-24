@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1a1a1a; /* Dark background */
+            color: #ffffff; /* White text */
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            border: 5px solid #ffcc00; /* Attractive border color */
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.5); /* Shadow effect */
+            background-color: #333; /* Darker background for the clock */
+        }
+
+        #time {
+            font-size: 48px;
+            margin: 10px 0;
+        }
+
+        #date {
+            font-size: 24px;
+            margin: 5px 0;
+        }
+
+        #temperature {
+            font-size: 24px;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="time"></div>
+        <div id="date"></div>
+        <div id="temperature"></div>
+    </div>
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const formattedHours = hours % 12 || 12; // Convert to 12-hour format
+            const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+            const formattedSeconds = seconds < 10 ? '0' + seconds : seconds;
+
+            const timeString = `${formattedHours}:${formattedMinutes}:${formattedSeconds} ${ampm}`;
+            document.getElementById('time').innerText = timeString;
+
+            const day = now.getDate();
+            const month = now.toLocaleString('default', { month: 'long' });
+            const year = now.getFullYear();
+            const dateString = `${month} ${day}, ${year}`;
+            document.getElementById('date').innerText = dateString;
+
+            // Simulated temperature (you can replace this with an API call)
+            const temperature = Math.floor(Math.random() * 30) + 15; // Random temperature between 15 and 45
+            document.getElementById('temperature').innerText = `Temperature: ${temperature}°C`;
+        }
+
+        // Update the clock every second
+        setInterval(updateClock, 1000);
+        updateClock(); // Initial call to display immediately
+    </script>
+</body>
+</html>
